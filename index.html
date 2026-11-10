@@ -10,7 +10,7 @@
 <header><strong>DopaBooks</strong><nav aria-label="作品"><select id="works" aria-label="作品を切り替える"></select></nav></header>
 <section id="reader" aria-label="本文"><div id="track"></div></section>
 <footer>
-<div class="reading-stats"><button id="position" type="button" aria-haspopup="dialog" aria-controls="jump-dialog"><span id="position-roll"><span id="position-old" aria-hidden="true"></span><span id="position-number"></span></span><span id="position-total"></span><span aria-hidden="true">↗</span></button><button id="recap" type="button" aria-haspopup="dialog" aria-controls="recap-dialog"><svg aria-hidden="true" width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><path d="M4 4h8M4 8h8M4 12h5"/></svg>あらすじ</button></div>
+<div class="reading-stats"><button id="position" type="button" aria-haspopup="dialog" aria-controls="jump-dialog"><span id="position-roll"><span id="position-old" aria-hidden="true"></span><span id="position-number"></span></span><span aria-hidden="true">↗</span></button><button id="recap" type="button" aria-haspopup="dialog" aria-controls="recap-dialog"><svg aria-hidden="true" width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><path d="M4 4h8M4 8h8M4 12h5"/></svg>あらすじ</button></div>
 <div id="progress" role="progressbar" aria-label="この区切りの読書進捗" aria-valuemin="0"><div id="progressFill"></div></div>
 <nav aria-label="読書操作"><button id="next" aria-label="次の文"><span id="next-label">← あと一文だけ♡</span></button><button id="prev" aria-label="前の文">→</button></nav>
 </footer>
@@ -18,7 +18,7 @@
 <dialog id="jump-dialog" aria-labelledby="jump-title">
 <h2 id="jump-title">ページへ移動</h2>
 <form id="jump-form">
-<label for="jump-page">ページ番号</label>
+<label for="jump-page">ページ番号 <span id="position-total"></span></label>
 <input id="jump-page" type="number" inputmode="numeric" min="1" step="1" required autofocus>
 <button type="submit">移動</button>
 <button id="jump-cancel" type="button">閉じる</button>
@@ -34,8 +34,9 @@
 <h2 id="finish-title">読了おめでとう！</h2>
 <p id="finish-joke"></p>
 <p id="finish-count"></p>
-<form method="dialog"><a id="finish-share" target="_blank" rel="noopener noreferrer">Xで共有</a><button autofocus>閉じる</button></form>
+<form method="dialog"><a id="finish-share" target="_blank" rel="noopener noreferrer">Xで共有</a><button id="finish-copy" type="button">投稿文をコピー</button><button autofocus>閉じる</button></form>
+<p id="copy-status" role="status"></p>
 </dialog>
 <script src="books.js?v=recaps3"></script>
-<script src="reader.js?v=pages"></script>
+<script src="reader.js?v=share"></script>
 </html>

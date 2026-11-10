@@ -53,8 +53,7 @@ function updatePosition() {
   const number = get('position-number');
   const old = get('position-old');
   const value = String(pageIndex()+1);
-  get('position-total').textContent = '/ '+rows.length;
-  get('position').setAttribute('aria-label','全'+rows.length+'ページ中'+value+'ページ。ページへ移動');
+  get('position').setAttribute('aria-label',value+'ページ。ページへ移動');
   const before = number.textContent;
   if (before===value) return;
   positionAnimations.forEach(animation => animation.cancel());
@@ -137,6 +136,16 @@ function load() {
   track.style.transition = '';
 }
 const finish = get('finish');
+get('finish-copy').onclick = async () => {
+  const params = new URL(get('finish-share').href).searchParams;
+  const text = [params.get('text'),params.get('url')].filter(Boolean).join('\n');
+  try {
+    await navigator.clipboard.writeText(text);
+    get('copy-status').textContent = 'コピーしました';
+  } catch {
+    get('copy-status').textContent = text;
+  }
+};
 for (let i=0;i<16;i++) {
   const piece = document.createElement('span');
   const angle = i*Math.PI/8;
@@ -186,6 +195,7 @@ function move(direction) {
     share.searchParams.set('text','DopaBooksで「'+title+'」を読了しました！！\n'+punchline);
     if (location.protocol==='https:') share.searchParams.set('url',location.origin+location.pathname);
     get('finish-share').href = share.href;
+    get('copy-status').textContent = '';
     finish.showModal();
   }
 }
@@ -193,6 +203,7 @@ const jumpDialog = get('jump-dialog');
 const jumpPage = get('jump-page');
 get('position').onclick = () => {
   jumpPage.max = rows.length;
+  get('position-total').textContent = '（全'+rows.length+'ページ）';
   jumpPage.value = pageIndex()+1;
   jumpDialog.showModal();
 };
