@@ -53,11 +53,12 @@ function updatePosition() {
   const number = get('position-number');
   const old = get('position-old');
   const value = String(pageIndex()+1);
+  get('position-total').textContent = '/ '+rows.length;
+  get('position').setAttribute('aria-label','全'+rows.length+'ページ中'+value+'ページ。ページへ移動');
   const before = number.textContent;
   if (before===value) return;
   positionAnimations.forEach(animation => animation.cancel());
   number.textContent = value;
-  get('position').setAttribute('aria-label','読書位置 '+value);
   if (!before || reducedMotion.matches) return;
   const direction = Number(value)>Number(before) ? 1 : -1;
   old.textContent = before;
@@ -188,6 +189,26 @@ function move(direction) {
     finish.showModal();
   }
 }
+const jumpDialog = get('jump-dialog');
+const jumpPage = get('jump-page');
+get('position').onclick = () => {
+  jumpPage.max = rows.length;
+  jumpPage.value = pageIndex()+1;
+  jumpDialog.showModal();
+};
+get('jump-cancel').onclick = () => jumpDialog.close();
+get('jump-form').onsubmit = event => {
+  event.preventDefault();
+  const page = Number(jumpPage.value)-1;
+  if (!Number.isInteger(page) || page<0 || page>=rows.length) return;
+  progress.index = starts.findIndex(start => start>page)-1;
+  progress.part = page-starts[progress.index];
+  track.style.transition = 'none';
+  render();
+  track.getBoundingClientRect();
+  track.style.transition = '';
+  jumpDialog.close();
+};
 const recapDialog = get('recap-dialog');
 get('recap').onclick = () => {
   const page = pageIndex();
@@ -211,7 +232,7 @@ prev.onclick = () => move(-1);
 next.onclick = () => move(1);
 works.onchange = () => { state.active = works.value; load(); };
 document.addEventListener('keydown',event => {
-  if (finish.open || recapDialog.open || event.altKey || event.ctrlKey || event.metaKey || event.target.closest('select')) return;
+  if (finish.open || recapDialog.open || jumpDialog.open || event.altKey || event.ctrlKey || event.metaKey || event.target.closest('select')) return;
   const direction = {ArrowRight:-1,ArrowLeft:1,PageUp:-1,PageDown:1}[event.key];
   if (!direction) return;
   event.preventDefault();
