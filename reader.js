@@ -192,11 +192,19 @@ const recapDialog = get('recap-dialog');
 get('recap').onclick = () => {
   const page = pageIndex();
   const end = sourceEnds[progress.index-Number(page!==starts[progress.index+1]-1)] ?? 0;
-  const beats = state.active==='spider-thread' ? spiderRecap.filter(([line]) => line<=end) : [];
-  get('recap-title').textContent = beats.length ? 'ここまでのあらすじ' : '直近の本文';
+  const workRecap = recaps[activeWork.id];
+  const beats = workRecap?.filter(([line]) => line<=end) ?? [];
+  get('recap-title').textContent = workRecap ? 'ここまでのあらすじ' : '直近の本文';
   get('recap-text').textContent = beats.length
     ? beats.slice(-3).map(([,text]) => text).join('\n')
-    : rows.slice(Math.max(0,page-2),page+1).map(row => row.textContent).join('\n');
+    : workRecap ? 'まだ始まったところ。'
+      : rows.slice(Math.max(0,page-2),page+1).map(row => row.textContent).join('\n');
+  get('recap-credit').hidden = !activeWork.credit;
+  if (activeWork.credit) {
+    get('credit-text').textContent = activeWork.credit;
+    get('credit-source').href = activeWork.source;
+    get('credit-license').href = activeWork.license;
+  }
   recapDialog.showModal();
 };
 prev.onclick = () => move(-1);
