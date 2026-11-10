@@ -2,6 +2,7 @@
 const samples = [
   {
     id: "spider-thread",
+    level: 1,
     title: "蜘蛛の糸（芥川龍之介）",
     shareTitle: "蜘蛛の糸",
     text: `ある日の事でございます。御釈迦様は極楽の蓮池のふちを、独りでぶらぶら御歩きになっていらっしゃいました。池の中に咲いている蓮の花は、みんな玉のようにまっ白で、そのまん中にある金色の蕊からは、何とも云えない好い匂が、絶間なくあたりへ溢れて居ります。極楽は丁度朝なのでございましょう。
@@ -21,6 +22,7 @@ const samples = [
   },
   {
     id: "yamanashi",
+    level: 1,
     title: "やまなし（宮沢賢治）",
     shareTitle: "やまなし",
     source: "https://www.aozora.gr.jp/cards/000081/card46605.html",
@@ -112,6 +114,7 @@ const samples = [
   },
   {
     id: "run-melos",
+    level: 2,
     title: "走れメロス（太宰治）",
     shareTitle: "走れメロス",
     source: "https://www.aozora.gr.jp/cards/000035/card1567.html",
@@ -192,6 +195,7 @@ const samples = [
   },
   {
     id: 'match-seller',
+    level: 1,
     title: 'マッチ売りの少女（アンデルセン）',
     shareTitle: 'マッチ売りの少女',
     source: 'https://www.aozora.gr.jp/cards/000019/files/194_23024.html',

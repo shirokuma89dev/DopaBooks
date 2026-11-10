@@ -103,7 +103,7 @@ function load() {
   const work = library.find(item => item.id===state.active) ?? library[0];
   state.active = work.id;
   activeWork = work;
-  works.replaceChildren(...library.map(item => new Option(item.title,item.id)));
+  works.replaceChildren(...library.map(item => new Option(item.level ? 'Lv.'+item.level+' · '+item.title : item.title,item.id)));
   works.value = work.id;
   const groups = groupDialogue(split(work.text));
   sentences = groups.map(group => group.text);
