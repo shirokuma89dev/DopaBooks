@@ -192,7 +192,7 @@ function move(direction) {
     const title = activeWork.shareTitle ?? activeWork.title;
     const punchline = 'あと一文だけ、のつもりが「'+title+'」を読了。';
     get('finish-joke').textContent = punchline;
-    share.searchParams.set('text','DopaBooksで「'+title+'」を読了しました！！\n'+punchline+'\n#DopaBooks');
+    share.searchParams.set('text','DopaBooksで「'+title+'」を読了しました！！（'+sentences.length+'文）\n'+punchline+'\n#DopaBooks');
     if (location.protocol==='https:') share.searchParams.set('url',location.origin+location.pathname);
     get('finish-share').href = share.href;
     get('copy-status').textContent = '';
