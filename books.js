@@ -296,7 +296,7 @@ const samples = [
   },
   {
     id: "cat",
-    level: 3,
+    level: 5,
     title: "吾輩は猫である（夏目漱石）",
     shareTitle: "吾輩は猫である",
     source: "https://www.aozora.gr.jp/cards/000148/card789.html",
